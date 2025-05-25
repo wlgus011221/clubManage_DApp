@@ -4,11 +4,16 @@
     <meta charset="UTF-8" />
     <title>동호회 회비 관리 DApp</title>
 
+    <!-- Bootstrap CSS 불러오기 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <!-- jQuery 불러오기 -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- Bootstrap JS 불러오기 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Web3.js 라이브러리 불러오기 -->
     <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 
+    <!-- 페이지 스타일 정의 -->
     <style>
         body {
             padding-top: 20px;
@@ -45,86 +50,115 @@
 </head>
 <body>
 <div class="container">
+    <!-- 메인 타이틀 -->
     <h2 class="text-center">💸 동호회 회비 관리 DApp</h2>
 
-    <!-- 지갑 선택 -->
+    <!-- 지갑 선택 영역 -->
     <div class="panel panel-default">
         <div class="panel-heading"><strong>지갑 선택</strong></div>
         <div class="panel-body">
             <p>로그인할 지갑 주소를 선택해주세요.</p>
+            <!-- JavaScript에서 동적으로 지갑 선택 옵션을 생성 -->
             <div id="wallet-selection" class="form-group"></div>
         </div>
     </div>
 
-    <!-- 관리자 섹션 -->
+    <!-- 관리자 전용 섹션 -->
     <div id="adminSection" class="panel panel-info section" style="display:none;">
         <div class="panel-heading"><strong>관리자 기능</strong></div>
         <div class="panel-body">
 
+            <!-- 출금 기능 -->
             <h4>출금</h4>
             <div class="form-inline">
+                <!-- 출금 금액 입력 -->
                 <input id="withdrawAmount" type="number" class="form-control" placeholder="출금할 ETH" step="0.001" min="0" />
+                <!-- 출금 버튼 -->
                 <button class="btn btn-danger" id="withdrawBtn">출금</button>
             </div>
+            <!-- 출금 결과 상태 출력 -->
             <p id="withdrawStatus"></p>
 
             <hr>
 
+            <!-- 회원 등록 기능 -->
             <h4>회원 등록</h4>
             <div class="form-inline">
+                <!-- 등록할 회원 주소 입력 -->
                 <input id="newMemberAddress" type="text" class="form-control" placeholder="회원 주소" style="width: 250px;" />
+                <!-- 등록할 회원 이름 입력 -->
                 <input id="newMemberName" type="text" class="form-control" placeholder="이름" style="width: 150px;" />
+                <!-- 회원 등록 버튼 -->
                 <button class="btn btn-primary" id="registerMemberBtn">등록</button>
             </div>
+            <!-- 등록 결과 상태 출력 -->
             <p id="registerStatus"></p>
 
             <hr>
 
+            <!-- 전체 회원 목록 출력 -->
             <h4>회원 목록</h4>
+            <!-- 회원 목록이 출력될 리스트 -->
             <ul id="memberList" class="list-group"></ul>
+            <!-- 회원 목록 새로고침 버튼 -->
             <button class="btn btn-info" id="refreshMembersBtn">새로고침</button>
 
             <hr>
 
+            <!-- 회원 상세 정보 조회 -->
             <h4>회원 상세 조회</h4>
             <div class="form-inline">
+                <!-- 조회할 회원 주소 입력 -->
                 <input id="memberDetailAddress" type="text" class="form-control" placeholder="회원 주소 입력" style="width: 300px;" />
+                <!-- 조회 버튼 -->
                 <button class="btn btn-info" id="getMemberInfoBtn">조회</button>
             </div>
+            <!-- 회원 정보 결과 출력 -->
             <p id="memberInfo"></p>
         </div>
     </div>
 
-    <!-- 회원 섹션 -->
+    <!-- 일반 회원용 섹션 -->
     <div id="userSection" class="panel panel-success section" style="display:none;">
         <div class="panel-heading"><strong>회원 기능</strong></div>
         <div class="panel-body">
+            <!-- 회비 납부 기능 -->
             <h4>회비 납부</h4>
             <div class="form-inline">
+                <!-- 납부할 금액 입력 -->
                 <input id="payAmount" type="number" class="form-control" placeholder="납부할 ETH" step="0.001" min="0" />
+                <!-- 납부 버튼 -->
                 <button class="btn btn-success" id="payFeeBtn">납부</button>
             </div>
+            <!-- 납부 결과 상태 출력 -->
             <p id="payStatus"></p>
 
             <hr>
 
+            <!-- 내 정보 조회 -->
             <h4>내 정보</h4>
+            <!-- 정보 조회 버튼 -->
             <button class="btn btn-primary" id="getMyInfoBtn">조회</button>
+            <!-- 내 정보 출력 -->
             <p id="myInfo"></p>
         </div>
     </div>
 
+    <!-- 컨트랙트 잔액 및 이벤트 로그 출력 섹션 -->
     <div class="panel panel-default">
         <div class="panel-body">
+            <!-- 컨트랙트 잔액 표시 -->
             <h4>📦 컨트랙트 잔액</h4>
             <p id="contractBalance"><strong>0 ETH</strong></p>
 
+            <!-- 이벤트 로그 표시 -->
             <h4>📝 이벤트 로그</h4>
             <div id="eventLog"></div>
         </div>
     </div>
 </div>
 
+<!-- 클럽 관리 DApp의 메인 스크립트 연결 -->
 <script src="club.js"></script>
 </body>
 </html>
