@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <title>동호회 회비 관리 DApp</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+
+    <style>
+        body {
+            padding-top: 20px;
+            background-color: #f8f9fa;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+        h2, h3, h4 {
+            font-weight: bold;
+        }
+        .panel {
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        #memberList {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        #eventLog {
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+        .form-inline input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2 class="text-center">💸 동호회 회비 관리 DApp</h2>
+
+    <!-- 지갑 선택 -->
+    <div class="panel panel-default">
+        <div class="panel-heading"><strong>지갑 선택</strong></div>
+        <div class="panel-body">
+            <p>로그인할 지갑 주소를 선택해주세요.</p>
+            <div id="wallet-selection" class="form-group"></div>
+        </div>
+    </div>
+
+    <!-- 관리자 섹션 -->
+    <div id="adminSection" class="panel panel-info section" style="display:none;">
+        <div class="panel-heading"><strong>관리자 기능</strong></div>
+        <div class="panel-body">
+
+            <h4>출금</h4>
+            <div class="form-inline">
+                <input id="withdrawAmount" type="number" class="form-control" placeholder="출금할 ETH" step="0.001" min="0" />
+                <button class="btn btn-danger" id="withdrawBtn">출금</button>
+            </div>
+            <p id="withdrawStatus"></p>
+
+            <hr>
+
+            <h4>회원 등록</h4>
+            <div class="form-inline">
+                <input id="newMemberAddress" type="text" class="form-control" placeholder="회원 주소" style="width: 250px;" />
+                <input id="newMemberName" type="text" class="form-control" placeholder="이름" style="width: 150px;" />
+                <button class="btn btn-primary" id="registerMemberBtn">등록</button>
+            </div>
+            <p id="registerStatus"></p>
+
+            <hr>
+
+            <h4>회원 목록</h4>
+            <ul id="memberList" class="list-group"></ul>
+            <button class="btn btn-info" id="refreshMembersBtn">새로고침</button>
+
+            <hr>
+
+            <h4>회원 상세 조회</h4>
+            <div class="form-inline">
+                <input id="memberDetailAddress" type="text" class="form-control" placeholder="회원 주소 입력" style="width: 300px;" />
+                <button class="btn btn-info" id="getMemberInfoBtn">조회</button>
+            </div>
+            <p id="memberInfo"></p>
+        </div>
+    </div>
+
+    <!-- 회원 섹션 -->
+    <div id="userSection" class="panel panel-success section" style="display:none;">
+        <div class="panel-heading"><strong>회원 기능</strong></div>
+        <div class="panel-body">
+            <h4>회비 납부</h4>
+            <div class="form-inline">
+                <input id="payAmount" type="number" class="form-control" placeholder="납부할 ETH" step="0.001" min="0" />
+                <button class="btn btn-success" id="payFeeBtn">납부</button>
+            </div>
+            <p id="payStatus"></p>
+
+            <hr>
+
+            <h4>내 정보</h4>
+            <button class="btn btn-primary" id="getMyInfoBtn">조회</button>
+            <p id="myInfo"></p>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h4>📦 컨트랙트 잔액</h4>
+            <p id="contractBalance"><strong>0 ETH</strong></p>
+
+            <h4>📝 이벤트 로그</h4>
+            <div id="eventLog"></div>
+        </div>
+    </div>
+</div>
+
+<script src="club.js"></script>
+</body>
+</html>
